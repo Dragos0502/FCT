@@ -65,7 +65,7 @@
 
     <div class="container">
         <div class="form-container">
-            <h2>LOGIN</h2>
+            <h2>FCT Manager</h2>
 
             <form action="procesar_login.php" method="post">
                 <div class="form-group">

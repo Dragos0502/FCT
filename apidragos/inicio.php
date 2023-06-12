@@ -52,31 +52,67 @@ if (isset($_POST['cerrar_sesion'])) {
       }
     });
   </script>
+
+  <style>
+    body {
+      padding-top: 100px;
+      
+    }
+
+    .container {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .welcome-message {
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 20px;
+      border-color: #ffa500;
+      margin: 10px;
+      padding: 25px;
+      box-shadow: 0px 3px 3px 3px #007bff;
+      font-size:x-large;
+      color: #ffa500;
+      text-shadow: 1px 1px 2px #ffa500;
+    }
+
+    .welcome-message h1 {
+   
+      margin-bottom: 20px;
+    }
+
+    .welcome-message p {
+      
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 
 <body>
   <header>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">FCT</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <ul class="navbar-nav">
-
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="inicio.php">Principal</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="listado_alumnos.php" id="buscadorNavItem">Lista Alumnos</a>
+                <a class="nav-link" href="listado_alumnos.php" id="buscadorNavItem">Buscador</a>
               </li>
               <li class="nav-item" id="perfilNavItem">
                 <a class="nav-link" href="perfilalumno.php">Mi perfil</a>
               </li>
-
             </ul>
           </div>
         </div>
@@ -90,7 +126,15 @@ if (isset($_POST['cerrar_sesion'])) {
 
   </header>
 
-
+  <div class="container">
+    <div class="welcome-message">
+      <h1>Bienvenido a la plataforma de gestión de alumnos</h1>
+      <p>Esta plataforma está diseñada para gestionar los datos de los alumnos y las candidaturas a empresas.</p>
+      <p>Permite llevar un seguimiento de los alumnos, su información personal, currículums, candidaturas y más.</p>
+      <p>Además, facilita el proceso de búsqueda y selección de candidatos por parte de las empresas.</p>
+      <p>¡Explora las diferentes funcionalidades y disfruta de una gestión eficiente y organizada!</p>
+    </div>
+  </div>
 
 
 

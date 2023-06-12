@@ -13,77 +13,77 @@
     <title>INICIO</title>
 
     <style>
-        
-        body {
-            
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-        }
-    
-        .form-container {
-            zoom: 1.5;
-          max-width: 400px;
-          margin: auto;
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          background-color: #f9f9f9;
-          
-        }
-    
-        .form-container h2 {
-          text-align: center;
-          margin-bottom: 20px;
-        }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+    }
 
-        .btn-primary{
-            margin-top: 10px;
+    .form-container {
+        zoom: 1.5;
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-color: #ffa500;
+        border-radius: 5px;
+        background-color: #343a40;
+        color: #fff; /* Color del texto */
+        box-shadow: 0px 5px 5px #007bff;
+    }
 
-        }
-      </style>
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+    }
+
+    .btn-primary {
+        margin-top: 10px;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #ffa500;
+    }
+</style>
+
 </head>
 
 <body>
     <header>
-
-
     </header>
-    
 
     <div class="container">
         <div class="form-container">
-          <h2>Iniciar sesión FCT</h2>
-          
-          <form action="procesar_login.php" method="post">
-            <div class="form-group">
-              <label for="email">Correo electrónico:</label>
-              <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-    
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-    
-            <div  class="form-group text-center">
-              <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-            </div>
-          </form>
+            <h2>LOGIN</h2>
+
+            <form action="procesar_login.php" method="post">
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </div>
+            </form>
         </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

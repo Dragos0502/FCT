@@ -36,14 +36,9 @@ async function mostrarDatosAlumno(idAlumno) {
     document.getElementById("datosAlumno").innerHTML = "";
 
     // Mostrar los datos del alumno
-    let alumno; // Suponiendo que la respuesta devuelve un único alumno
+    let alumno = data[idAlumno-1]; // Suponiendo que la respuesta devuelve un único alumno
 
-    if (idAlumno === 1) {
-      alumno = data[idAlumno];
-    } else {
-      alumno = data[idAlumno - 1];
-    }
-
+   
     // Crear la card de Bootstrap
     let card = document.createElement("div");
     card.classList.add("card");
@@ -132,8 +127,8 @@ async function mostrarCandidaturasAlumno(idAlumno) {
 
         // Crear una card para mostrar la candidatura
         let card = document.createElement("div");
-        card.classList.add("card", "mb-3");
-        card.classList.add("w-50"); // Ocupa el 50% del ancho
+        card.classList.add("card", "mb-5");
+        card.classList.add("w-35"); // Ocupa el 50% del ancho
 
         // Crear el contenido de la card
         let cardBody = document.createElement("div");
@@ -174,7 +169,6 @@ async function mostrarCandidaturasAlumno(idAlumno) {
   }
 }
 
-
 async function mostrarCandidaturas(alumnoId) {
   try {
     // Obtener las candidaturas del alumno desde la API
@@ -183,19 +177,19 @@ async function mostrarCandidaturas(alumnoId) {
       {
         cache: "no-store", // Desactiva la caché del navegador
       }
-      );
-      let data = await response.json();
-      
-      // Obtener el contenedor en el que se mostrarán las candidaturas
-      let contenedor = document.getElementById("candidaturasAlumno");
-      
-      // Limpiar el contenedor antes de mostrar las nuevas candidaturas
-      contenedor.innerHTML = "";
-      
-      let candidaturas = data.filter(
-        (candidatura) => candidatura.id_alumno === alumnoId
-        );
-        
+    );
+    let data = await response.json();
+
+    // Obtener el contenedor en el que se mostrarán las candidaturas
+    let contenedor = document.getElementById("candidaturasAlumno");
+
+    // Limpiar el contenedor antes de mostrar las nuevas candidaturas
+    contenedor.innerHTML = "";
+
+    let candidaturas = data.filter(
+      (candidatura) => candidatura.id_alumno === alumnoId
+    );
+
     // Verificar si el alumno tiene candidaturas
     if (candidaturas.length === 0) {
       // Mostrar mensaje de que no hay candidaturas
@@ -207,38 +201,39 @@ async function mostrarCandidaturas(alumnoId) {
       candidaturas.forEach(async (candidatura) => {
         // Obtener el nombre de la empresa asociada a la candidatura
         let nombreEmpresa = await obtenerNombreEmpresa(candidatura.id_empresa);
-        
+
         // Crear una card para mostrar la candidatura
         let card = document.createElement("div");
         card.classList.add("card", "mb-3");
         card.classList.add("w-50"); // Ocupa el 50% del ancho
-        
+
         // Crear el contenido de la card
         let cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
-        
+
         // Mostrar el ID de la candidatura
         let idElemento = document.createElement("h5");
         idElemento.classList.add("card-title");
         idElemento.textContent = `Candidatura: ID ${candidatura.id_candidatura}`;
         cardBody.appendChild(idElemento);
-        
+
         // Mostrar el nombre de la empresa
         let empresaElemento = document.createElement("p");
         empresaElemento.classList.add("card-text");
         empresaElemento.textContent = `Empresa: ${nombreEmpresa}`;
         cardBody.appendChild(empresaElemento);
-        
+
         // Mostrar el estado de aprobación
         let aprobadoElemento = document.createElement("p");
         aprobadoElemento.classList.add("card-text");
-        
+
         if (candidatura.aprobado == 1) {
           aprobadoElemento.textContent = `Estado: Aprobado  `;
         } else {
           aprobadoElemento.textContent = `Estado: Denegado  `;
         }
         cardBody.appendChild(aprobadoElemento);
+
         // Crear el botón "Modificar Candidatura"
         let modificarBtn = document.createElement("button");
         modificarBtn.textContent = "Modificar Candidatura";
@@ -248,10 +243,43 @@ async function mostrarCandidaturas(alumnoId) {
           window.location.href = `modificar_candidatura.php?id_candidatura=${candidatura.id_candidatura}`;
         });
         cardBody.appendChild(modificarBtn);
-        
+
+        // Crear el botón "Borrar Candidatura"
+        let borrarBtn = document.createElement("button");
+        borrarBtn.textContent = "Borrar Candidatura";
+        borrarBtn.classList.add("btn", "btn-danger", "mx-2");
+        borrarBtn.addEventListener("click", () => {
+          // Mostrar mensaje de confirmación al usuario
+          if (confirm("¿Estás seguro de que quieres borrar esta candidatura?")) {
+            // Realizar la solicitud para borrar la candidatura
+            fetch(`http://apidragos.com/borrar_candidatura.php?id_candidatura=${candidatura.id_candidatura}`, {
+              method: "DELETE",
+            })
+              .then(response => response.json())
+              .then(data => {
+                // Verificar si la eliminación fue exitosa
+                if (data.success) {
+                  // Eliminar la tarjeta de la candidatura de la interfaz
+                  card.remove();
+                  // Mostrar mensaje de éxito
+                  alert("La candidatura ha sido borrada exitosamente.");
+                } else {
+                  // Mostrar mensaje de error
+                  alert("No se pudo borrar la candidatura. Por favor, inténtalo nuevamente.");
+                }
+              })
+              .catch(error => {
+                // Mostrar mensaje de error en caso de fallo en la solicitud
+                console.error("Error al borrar la candidatura:", error);
+                alert("Ocurrió un error al borrar la candidatura. Por favor, inténtalo nuevamente.");
+              });
+          }
+        });
+        cardBody.appendChild(borrarBtn);
+
         // Agregar el cuerpo de la card a la card
         card.appendChild(cardBody);
-        
+
         // Agregar la card al contenedor
         contenedor.appendChild(card);
       });
@@ -260,6 +288,7 @@ async function mostrarCandidaturas(alumnoId) {
     console.error("Error al obtener las candidaturas del alumno:", error);
   }
 }
+
 
 function mostrarAlumnos() {
   fetch("http://apidragos.com/obtener_alumnos.php")
@@ -300,8 +329,6 @@ function mostrarAlumnos() {
         dropdownMenu.appendChild(link);
       });
 
-      // Resto del código...
-
       // Inicializar el buscador
       const inputBuscador = document.getElementById("buscadorAlumnos");
       inputBuscador.addEventListener("input", () => {
@@ -332,3 +359,5 @@ function mostrarAlumnos() {
       console.error("Error al obtener la lista de alumnos:", error);
     });
 }
+
+
